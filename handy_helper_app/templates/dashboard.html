@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Handy Helper Dashboard</title>
+    <style>
+        #heading, h2{display: inline;}
+        table, th, td {
+            border: 1px solid black;
+            margin-bottom: 20px;
+        }
+        th{background-color: rgb(166, 190, 80);}
+        td{background-color: rgb(127, 181, 231);}
+        #logout{float: right; margin-right: 20px;}
+    </style>
+</head>
+<body>
+    <div id="heading">
+        <h2>Hello {{user.first_name}}!</h2>
+        <a id="logout" href="/logout">Logout</a>
+        <form action="/jobs/new" method="POST">
+            {% csrf_token %}
+            <button>New job!</button>
+        </form>
+    </div>
+
+    <h3>Everyone's jobs:</h3>
+    <table>
+        <thead>
+            <tr>
+                <td>Job</td>
+                <td>Location</td>
+                <td>Actions</td>
+            </tr>
+        </thead>
+        <tbody>
+            {% for job in jobs %}
+            <tr>
+                <td>{{job.description}}</td>
+                <td>{{job.location}}</td>
+                <td><a href="/jobs/{{job.id}}">View</a> {% if job.uploaded_by.id == user.id %} | <a href="/jobs/delete/{{job.id}}">Remove</a> |  <a href="/jobs/edit/{{job.id}}">Edit</a> {% endif %}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

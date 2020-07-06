@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Job</title>
+    <style>a{float: right; margin-right: 20px;}</style>
+</head>
+<body>
+    <h1>Hello {{user.first_name}}! Create a job!</h1>
+    <a href="/logout">Logout</a>
+    <a href="/dashboard">Dashboard</a>
+    {% for message in messages %}    
+        <p style="color: red;" >{{ message }}</p>    
+    {% endfor %}
+    <form action="/create_job" method="POST">
+        {% csrf_token %}
+        <div>
+            <label>Title</label>
+            <input type="text" name="title">
+        </div>
+        <div>
+            <label>Description</label>
+            <input type="text" name="description">
+        </div>
+        <div>
+            <label>Location</label>
+            <input type="text" name="location">
+        </div>
+        <button>Submit</button>
+    </form>
+</body>
+</html>

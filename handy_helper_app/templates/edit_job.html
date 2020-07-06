@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit</title>
+    <style>a{float: right; margin-right: 20px;}</style>
+</head>
+<body>
+    <h1>Hello {{user.first_name}}! Let's edit your job!</h1>
+    <a href="/logout">Logout</a>
+    <a href="/dashboard">Dashboard</a>
+    {% for message in messages %}    
+        <p style="color: red;" >{{ message }}</p>    
+    {% endfor %}
+    <form action="/update_job/{{job.id}}" method="POST">
+        {% csrf_token %}
+        <label>Title:</label>
+        <input type="text" name="title" value="{{job.title}}"><br>
+        <label>Description:</label>
+        <input type="text" name="description" value="{{job.description}}"><br>
+        <label>Location:</label>
+        <input type="text" name="location" value="{{job.location}}"><br>
+        <button>Submit</button>
+    </form>
+</body>
+</html>
